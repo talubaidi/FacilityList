@@ -419,7 +419,7 @@ def merge_doubles (list):
 							print "\n"
 							
 							while True:
-								cmd = raw_input ('Type "m" to merge, "i" to ignore and "s" to save merged file and resume later, or "?" followed by the object id for information: ' )
+								cmd = raw_input ('Type "m" to merge, "i" to ignore and "s" to save merged file and resume later, or "?" followed by the object id for information ("*" can be used at the end of object name for matching): ' )
 
 								if  ( cmd == 's' or cmd == 'm' or cmd == 'i' ): break
 
@@ -434,7 +434,8 @@ def merge_doubles (list):
 									else:
 										found = False
 										for obj_id in list:
-											if str(obj_id).startswith(cmd_arr[1]):										
+											name = str(cmd_arr[1])
+											if ( ( name.endswith("*") and str(obj_id).startswith(name[:-1]) ) or ( name.endswith("*") and str(obj_id) == cmd_arr[1][:-1] ) or ( str(obj_id) == name ) ):									
 												print ("\n** Object: " + obj_id + " **")
 												print json.dumps( list[obj_id], indent=2 )
 												print ("\n")
